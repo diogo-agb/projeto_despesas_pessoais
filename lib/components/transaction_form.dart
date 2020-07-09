@@ -21,6 +21,9 @@ class _TransactionFormState extends State<TransactionForm> {
     if (title.isEmpty || value <= 0) {
       return;
     }
+
+    //widget é um atributo de erança da classe TransactionForm
+    // com o widget você tem acesso a todos parâmetros que foram passados para o seu componente
     widget.onSubmit(title, value);
   }
 

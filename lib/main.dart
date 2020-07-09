@@ -11,6 +11,14 @@ class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //ThemeData para alterar a cor de toda a aplicação
+      // A cor do tema é algo genérico, se for definida cor específica ela terá prioridade
+      theme: ThemeData(
+        //primarySwath para passar um conjunto de cores dentro do mesmo espectro
+        primarySwatch: Colors.purple,
+        //Cor de destaque de realce, recebe uma cor
+        accentColor: Colors.amber[700],
+      ),
       home: MyHomePage(),
     );
   }
@@ -48,6 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _transactions.add(newTransaction);
     });
+
+    //Usando o Navigator podemos fechar o modal, é um widget statefull que contém o método of
+    // .pop() tira o primeiro elemento da pilha (pilha de telas)
+    Navigator.of(context).pop();
   }
 
   _openTransactionFormModal(BuildContext context) {
