@@ -14,10 +14,30 @@ class ExpensesApp extends StatelessWidget {
       //ThemeData para alterar a cor de toda a aplicação
       // A cor do tema é algo genérico, se for definida cor específica ela terá prioridade
       theme: ThemeData(
+        textTheme: ThemeData.light().textTheme.copyWith(
+              // ignore: deprecated_member_use
+              title: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+        appBarTheme: AppBarTheme(
+          //Alterando a fonte do tema no appbar
+          textTheme: ThemeData.light().textTheme.copyWith(
+                // ignore: deprecated_member_use
+                title: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+        ),
+        fontFamily: 'Quicksand',
         //primarySwath para passar um conjunto de cores dentro do mesmo espectro
         primarySwatch: Colors.purple,
         //Cor de destaque de realce, recebe uma cor
-        accentColor: Colors.amber[700],
+        accentColor: Colors.amber,
       ),
       home: MyHomePage(),
     );
@@ -30,19 +50,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _transactions = [
-    Transaction(
-      id: 't1',
-      title: 'Novo tênis de corrida',
-      value: 310.76,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Conta de luz',
-      value: 211.30,
-      date: DateTime.now(),
-    ),
+  final List<Transaction> _transactions = [
+    // Transaction(
+    //   id: 't1',
+    //   title: 'Novo tênis de corrida',
+    //   value: 310.76,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'Conta de luz',
+    //   value: 211.30,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   _addTransaction(String title, double value) {
@@ -81,7 +101,13 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () => _openTransactionFormModal(context),
             )
           ],
-          title: Text('Despesas pessoais'),
+          title: Text(
+            'Despesas pessoais',
+            //Adicionado font-family de forma esprcífica
+            // style: TextStyle(
+            //   fontFamily: 'OpenSans'
+            // ),
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(
