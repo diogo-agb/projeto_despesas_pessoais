@@ -12,17 +12,21 @@ class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       //ThemeData para alterar a cor de toda a aplicação
       // A cor do tema é algo genérico, se for definida cor específica ela terá prioridade
       theme: ThemeData(
         textTheme: ThemeData.light().textTheme.copyWith(
-              // ignore: deprecated_member_use
-              title: TextStyle(
-                fontFamily: 'OpenSans',
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+            // ignore: deprecated_member_use
+            title: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
             ),
+            button: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            )),
         appBarTheme: AppBarTheme(
           //Alterando a fonte do tema no appbar
           textTheme: ThemeData.light().textTheme.copyWith(
@@ -70,6 +74,18 @@ class _MyHomePageState extends State<MyHomePage> {
       value: 211.30,
       date: DateTime.now().subtract(Duration(days: 4)),
     ),
+    Transaction(
+      id: 't3',
+      title: 'Cartão de crédito',
+      value: 111450.00,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'Lanche',
+      value: 11.30,
+      date: DateTime.now(),
+    ),
   ];
 
   List<Transaction> get _recentTransactions {
@@ -98,10 +114,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
-        context: context,
-        builder: (ctx) {
-          return TransactionForm(_addTransaction);
-        });
+      context: context,
+      builder: (_) {
+        return TransactionForm(_addTransaction);
+      },
+    );
   }
 
   @override
