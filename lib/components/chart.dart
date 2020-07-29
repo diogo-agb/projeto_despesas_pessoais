@@ -40,6 +40,9 @@ class Chart extends StatelessWidget {
     ); // fold funciona como o reduce no *javascript
   }
 
+  // return Container(
+  //     height: MediaQuery.of(context).size.height * 0.47, tamanho dinâmico
+
   @override
   Widget build(BuildContext context) {
     //print(groupedTransactions);
