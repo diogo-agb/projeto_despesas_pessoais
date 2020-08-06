@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class ChartBar extends StatelessWidget {
   final String label;
   final double value;
   final double percentage;
 
-  ChartBar({
+  const ChartBar({
     this.label,
     this.value,
     this.percentage,
@@ -13,48 +14,62 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 20,
-          child: FittedBox(
-            // Reduz o Tamnaho até caber no espaço especificado
-            child: Text('${value.toStringAsFixed(2)}'),
-          ),
-        ),
-        SizedBox(height: 5), // Sizedbox para dar espaço
-        Container(
-          height: 60,
-          width: 10,
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            // Stack permite colocar um componente em cima do outro
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 1.0,
-                  ),
-                  color: Color.fromRGBO(220, 220, 220, 1),
-                  borderRadius: BorderRadius.circular(5),
-                ),
+    print('Build() ChartBar');
+    return LayoutBuilder(
+      builder: (ctx, constraints) {
+        return Column(
+          children: <Widget>[
+            Container(
+              height: constraints.maxHeight * 0.15,
+              child: FittedBox(
+                // Reduz o Tamnaho até caber no espaço especificado
+                child: Text('${value.toStringAsFixed(2)}'),
               ),
-              FractionallySizedBox(
-                heightFactor: percentage,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(5),
+            ),
+            SizedBox(
+                height:
+                    constraints.maxHeight * 0.05), // Sizedbox para dar espaço
+            Container(
+              height: constraints.maxHeight * 0.6,
+              width: 10,
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                // Stack permite colocar um componente em cima do outro
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 1.0,
+                      ),
+                      color: Color.fromRGBO(220, 220, 220, 1),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                   ),
-                ),
-              )
-            ],
-          ),
-        ),
-        SizedBox(height: 5), // Sizedbox para dar espaço
-        Text(label),
-      ],
+                  FractionallySizedBox(
+                    heightFactor: percentage,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+                height:
+                    constraints.maxHeight * 0.05), // Sizedbox para dar espaço
+            Container(
+              child: FittedBox(
+                child: Text(label),
+              ),
+              height: constraints.maxHeight * 0.15,
+            ),
+          ],
+        );
+      },
     );
   }
 }
