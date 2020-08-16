@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/transaction.dart';
-import 'package:intl/intl.dart';
+import './transaction_item.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
@@ -19,13 +19,13 @@ class TransactionList extends StatelessWidget {
               return Column(
                 children: <Widget>[
                   //Definindo espaçamento entre componentes com SizedBox
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Text(
                     'Nenhuma transação cadastrada!',
                     // ignore: deprecated_member_use
                     style: Theme.of(context).textTheme.title,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Container(
                     height: constraints.maxHeight * 0.6,
                     child: Image.asset(
@@ -42,45 +42,21 @@ class TransactionList extends StatelessWidget {
             itemCount: transactions.length,
             itemBuilder: (ctx, index) {
               final e = transactions[index];
-              return Card(
-                elevation: 5,
-                margin: EdgeInsets.symmetric(
-                  vertical: 8,
-                  horizontal: 5,
-                ),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius: 30,
-                    child: Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: FittedBox(
-                        child: Text('R\$${e.value}'),
-                      ),
-                    ),
-                  ),
-                  title: Text(
-                    e.title,
-                    // ignore: deprecated_member_use
-                    style: Theme.of(context).textTheme.title,
-                  ),
-                  subtitle: Text(
-                    DateFormat('d MMM y').format(e.date),
-                  ),
-                  trailing: MediaQuery.of(context).size.width > 400
-                      ? FlatButton.icon(
-                          onPressed: () => onRemove(e.id),
-                          icon: Icon(Icons.delete),
-                          label: Text('Excluir'),
-                          textColor: Theme.of(context).errorColor,
-                        )
-                      : IconButton(
-                          onPressed: () => onRemove(e.id),
-                          icon: Icon(Icons.delete),
-                          color: Theme.of(context).errorColor,
-                        ),
-                ),
+              return TransactionItem(
+                key: GlobalObjectKey(e),
+                e: e,
+                onRemove: onRemove,
               );
             },
           );
+    // : ListView(
+    //     children: transactions.map((e) {
+    //       return TransactionItem(
+    //         key: ValueKey(e.id),
+    //         e: e,
+    //         onRemove: onRemove,
+    //       );
+    //     }).toList(),
+    //   );
   }
 }
